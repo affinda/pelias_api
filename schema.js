@@ -22,6 +22,7 @@ module.exports = Joi.object().keys({
     relativeScores: Joi.boolean(),
     exposeInternalDebugTools: Joi.boolean(),
     requestRetries: Joi.number().integer().min(0),
+    maxConcurrentShardRequests: Joi.number().integer().min(1),
     customBoosts: Joi.object().keys({
       layer: Joi.object(),
       source: Joi.object()
