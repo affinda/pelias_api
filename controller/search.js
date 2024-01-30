@@ -51,7 +51,7 @@ function setup( peliasConfig, esclient, query, should_execute ){
     const cmd = {
       index: apiConfig.indexName,
       searchType: 'dfs_query_then_fetch',
-      body: renderedQuery.body
+      body: renderedQuery.body,
     };
 
     // support for the 'clean.enableElasticExplain' config flag
@@ -74,6 +74,11 @@ function setup( peliasConfig, esclient, query, should_execute ){
           source: JSON.stringify(cmd.body)
         }
       });
+    }
+
+    // support for the 'maxConcurrentShardRequests' config flag
+    if (!_.isNil(_.get(apiConfig, 'maxConcurrentShardRequests'))) {
+        cmd.maxConcurrentShardRequests = _.get(apiConfig, 'maxConcurrentShardRequests');
     }
 
     debugLog.push(req, {
